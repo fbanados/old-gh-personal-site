@@ -21,9 +21,9 @@
 ;; standard-header-titled : (listof xexpr) -> xexpr
 ;; Generetes a header with the required title.
 (define (standard-header-titled title)
-    (cons 'head
-     (cons (cons 'title title)
-           (twitter-bootstrap))))
+    (append `(head
+              ,(cons 'title title))
+            (twitter-bootstrap)))
   
 
 (define test
