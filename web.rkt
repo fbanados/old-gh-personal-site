@@ -10,16 +10,20 @@
                    file
                    #:exists 'replace))
 
+;; twitter-bootstrap : -> (listof xexpr)
+(define (twitter-bootstrap)
+  '((link ((rel "stylesheet")
+           (href "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")))
+    (link ((rel "stylesheet")
+           (href "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css")))
+    (script ((src "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")))))
+
 ;; standard-header-titled : (listof xexpr) -> xexpr
 ;; Generetes a header with the required title.
 (define (standard-header-titled title)
-    `(head
-     ,(cons 'title title)
-     (link ((rel "stylesheet")
-            (href "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")))
-     (link ((rel "stylesheet")
-            (href "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css")))
-     (script ((src "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")))))
+    (cons 'head
+     (cons (cons 'title title)
+           (twitter-bootstrap))))
   
 
 (define test
