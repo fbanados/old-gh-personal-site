@@ -43,7 +43,12 @@
              ", "
              (a ((href "http://ingenieria.uchile.cl")) "Faculty of Physical and Mathematical Sciences")
              ", "
-             (a ((href "http://www.uchile.cl/english")) "University of Chile"))))))
+             (a ((href "http://www.uchile.cl/english")) "University of Chile"))
+          (p "I'm Chilean, so I carry"
+             (a ((href "https://en.wikipedia.org/wiki/Hispanic_American_naming_customs")) "Two family names")
+             ". I can also be called Felipe Ba"
+             ntilde
+             "ados.")))))
 
 (define site
   `(("index.html" ,test)))
