@@ -48,7 +48,9 @@
              (a ((href "https://en.wikipedia.org/wiki/Hispanic_American_naming_customs")) "Two family names")
              ". I can also be called Felipe Ba"
              ntilde
-             "ados.")))))
+             "ados.")
+          (img ((src "america_invertida.jpg")
+                (alt "America Invertida, Joaquin Torres Garcia. File from wikimedia commons. According to wikimedia, it is public domain in Uruguay.")))))))
 
 (define site
   `(("index.html" ,test)))
