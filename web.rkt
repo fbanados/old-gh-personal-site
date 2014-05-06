@@ -32,7 +32,7 @@
     (body
      (div ((class "container"))
           (h1 "Felipe Ba" ntilde "ados Schwerter")
-          (p "PhD student at the "
+          (p "From Sep 2, 2014, PhD student at the "
              (a ((href "http://cs.ubc.ca")) "Department of Computer Science")
              ", "
              (a ((href "http://science.ubc.ca")) "Faculty of Science")
