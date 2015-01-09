@@ -1,59 +1,73 @@
 #lang racket/base
-(require xml)
+;(require xml)
 (require racket/file)
+(require markdown)
+(require "utils.rkt")
+(require "links.rkt")
+(require "blog.rkt")
 
-;; xexpr->file : xexpr file -> void
-;; pukes an xexpr to a file.
-(define (xexpr->file xexpr file)
-  (display-to-file (string-append "<!DOCTYPE html>"
-                                  (xexpr->string xexpr))
-                   file
-                   #:exists 'replace))
-
-;; twitter-bootstrap : -> (listof xexpr)
-(define (twitter-bootstrap)
-  '((link ((rel "stylesheet")
-           (href "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")))
-    (link ((rel "stylesheet")
-           (href "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css")))
-    (script ((src "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")))))
-
-;; standard-header-titled : (listof xexpr) -> xexpr
-;; Generetes a header with the required title.
-(define (standard-header-titled title)
-    (append `(head
-              ,(cons 'title title))
-            (twitter-bootstrap)))
-  
-
-(define test
-  `(html
-    ,(standard-header-titled '("Felipe Ba" ntilde "ados Schwerter @ UBC"))
-    (body
+(define contact
+  (generate-page 
+   "contact"
+   `((blockquote ((class "blockquote-reverse"))
+		 (p "I have no tools because I've destroyed my tools with my tools")
+		 (footer "James Mickens, "
+			 (cite ((title "The Night Watch"))
+			       (a ((href "http://research.microsoft.com/en-us/people/mickens/thenightwatch.pdf"))
+				  "The Night Watch"))))
+     (h2 "Contact Information")
      (div ((class "container"))
-          (h1 "Felipe Ba" ntilde "ados Schwerter")
-          (p "From Sep 2, 2014, PhD student at the "
-             (a ((href "http://cs.ubc.ca")) "Department of Computer Science")
-             ", "
-             (a ((href "http://science.ubc.ca")) "Faculty of Science")
-             " of the "
-             (a ((href "http://www.ubc.ca")) "University of British Columbia"))
-          (p "BESc. in Computer Science, "
-             (a ((href "http://dcc.uchile.cl")) "Department of Computer Science")
-             ", "
-             (a ((href "http://ingenieria.uchile.cl")) "Faculty of Physical and Mathematical Sciences")
-             ", "
-             (a ((href "http://www.uchile.cl/english")) "University of Chile"))
-          (p "I'm Chilean, so I carry"
-             (a ((href "https://en.wikipedia.org/wiki/Hispanic_American_naming_customs")) "Two family names")
-             ". I can also be called Felipe Ba"
-             ntilde
-             "ados.")
-          (img ((src "america_invertida.jpg")
-                (alt "America Invertida, Joaquin Torres Garcia. File from wikimedia commons. According to wikimedia, it is public domain in Uruguay.")))))))
+          (div ((class "container")
+                (style "width: 250px; float:left; "))
+               (img ((src "https://media.licdn.com/media/p/2/000/22b/0d1/0fd318c.jpg")
+                     (style "width: 200px; height:auto; "))
+                    ))
+          (div ((class "container")
+                (style "width:auto; "))
+               (address
+                (strong "ICICS/CS Building") (br)
+                "201 - 2366 Main Mall" (br)
+                "Vancouver, BC" (br)
+                "Canada"(br)
+                ,(link "fbanadosATcs.ubc.ca" "#")(br)
+                )
+               (p "MSc. in Computer Science, "
+                  (a ((href "http://dcc.uchile.cl")) "Department of Computer Science")
+                  ", "
+                  (a ((href "http://ingenieria.uchile.cl/english")) "Faculty of Physical and Mathematical Sciences")
+                  ", "
+                  (a ((href "http://www.uchile.cl/english")) "University of Chile"))
+               (p "I have "
+                  (a ((href "https://en.wikipedia.org/wiki/Hispanic_American_naming_customs")) "two family names")
+                  ".")
+               ))
+     (p)
+     (img ((src "america_invertida.jpg")
+           (alt "America Invertida, Joaquin Torres Garcia. File from wikimedia commons. According to wikimedia, it is public domain in Uruguay."))))))
+
+(define publications
+  (generate-page
+   "publications"
+   `((h2 "Publications")
+     (p "TBD"))))
+
+(define activities
+  (generate-page
+   "activities"
+   `((h2 "Activities")
+     (ul
+      (li "2015: Student Volunteering Co-Chair for the "
+          ,(link "20th ACM SIGPLAN International Conference on Functional Programming" "http://icfpconference.org/icfp2015/index.html"))
+      (li "2014: Teaching Assistant for "
+          ,(link "CPSC 430 Computers and Society" "http://www.cs.ubc.ca/~kevinlb/teaching/cs430/"))
+      ))))
 
 (define site
-  `(("index.html" ,test)))
+  `(("index.html" ,contact)
+    ("publications.html" ,publications)
+    ("activities.html", activities)
+    ("links.html", links)
+    ("blog/index.html", blog)))
 
 (define (generate-site)
   (display "Generating site... This overrides any documents")
